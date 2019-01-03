@@ -4,49 +4,45 @@ que custam R$ 80,00 ou em galões de 3,6 litros, que custam R$ 25,00.
 Informe ao usuário as quantidades de tinta a serem compradas e os respectivos preços em 3 situações:
 comprar apenas latas de 18 litros;
 comprar apenas galões de 3,6 litros;
-misturar latas e galões, de forma que o preço seja o menor. Acrescente 10% de folga e sempre arredonde os valores para cima, isto é, considere latas cheias.'''
+misturar latas e galões, de forma que o preço seja o menor. Acrescente 10% de folga e sempre arredonde os valores para cima,
+isto é, considere latas cheias.'''
 
 from math import ceil
 
 altura = float(input('Digite a altura da parede em metros: '))
 largura = float(input('Digite a largura da parede em metros: '))
 
-area = (altura * largura)
+area = float((altura * largura) * 1.1)
 litros = area / 6
 
-valor_lata = 80.0
-quant_lata = 18
+latas = ceil(litros / 18)
 
-valor_galao = 25.00
-quant_galao = 3.6
+galao = ceil(litros / 3.6)
+total_l = latas * 80
+total_g = galao * 25
 
-latas = ceil(litros / quant_lata)
-galao = ceil(litros / quant_galao)
 
-terceira = (area % 6)
-
-print('')
-print(area)
-print('{:.0f}' .format(litros))
-print('{:.0f}' .format(terceira))
-print('')
 
 print('')
 print('=====comprar apenas latas de 18 litros=====')
-print('Você usará {} latas de tinta' .format(latas))
-print('O preço total é de: R${:.2f}'.format(latas * valor_lata))
+print('Você usará {} latas de tinta para pintar {:.0f} metros quadrados.' .format(latas, area))
+print('O preço total é de: R${:.2f}, custando R${} cada lata.'.format(total_l, 80.00))
 
 print('')
 print('=====comprar apenas galões de 3,6 litros=====')
-print('Você usará {} galão(ões) de tinta' .format(galao))
-print('O preço total é de: R${:.2f}'.format(galao * valor_galao))
+print('Você usará {} galão(ões) de tinta para pintar {:.0f} metros quadrados.' .format(galao, area))
+print('O preço total é de: R${:.2f}, custando R${} cada galão.'.format(total_g, 25.00))
 
+latas_m = round(litros / 18)
 
 print('')
-print('=====Menor Preço=====')
-if (area % 18) == 0:
-    print('Você usará {} latas de tinta' .format(latas))
-    print('O preço total é de: R${:.2f}'.format(latas * valor_lata))
+print('=====Latas Mescladas=====')
+if (latas_m * 18) * 6 < area:
+    galao = ceil((litros % 18) / 3.6)
+    total = ((latas_m * 80) + (galao * 25))
+    print('Você usará {} lata(s) e {} galão(ões) para pintar {:.0f} metros quadrados.'.format(latas_m, galao, area))
+
+    print('O valor total será de R${:.2f}, custando R${} as lata e R${} o galão.'.format(total, (latas_m * 80), (galao * 25)))
 else:
-    print('Você usará {} latas de tinta e {} galão(ões) de tinta.'.format(galao, latas))
-    print('O preço total é de: R${:.2f}'.format((latas * valor_lata) + (galao * valor_galao)))
+    print('Você usará {} latas de tinta para pintar {:.0f} metros quadrados.'.format(latas_m, area))
+    print('O preço total é de: R${:.2f}, custando R${} cada lata.'.format(total_l, 80.00))
